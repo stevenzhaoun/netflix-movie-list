@@ -1,8 +1,8 @@
 import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMovieAction, loadMovieDataAction, removeMovieAction } from './actions';
-import './App.css';
 import List from './components/List';
+import styles from './App.module.css'
 
 
 function App() {
@@ -24,6 +24,10 @@ function App() {
   }
   return (
     <div >
+      <img
+        className={styles.logo}
+        src="https://logos-world.net/wp-content/uploads/2020/04/Netflix-Symbol.png"
+      />
       {loading
         ? <div>Loading</div>
         : <Fragment>
