@@ -1,23 +1,47 @@
-import logo from './logo.svg';
+import { Fragment, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMovieAction, loadMovieDataAction, removeMovieAction } from './actions';
 import './App.css';
+import List from './components/List';
+
 
 function App() {
+
+  const dispatch = useDispatch();
+  const { myList, recommendations, loading } = useSelector((state) => {
+    return state.list
+  })
+  useEffect(() => {
+    dispatch(loadMovieDataAction());
+  }, []);
+
+  const handleAdd = (movie) => {
+    dispatch(addMovieAction(movie));
+  }
+
+  const handleRemove = (movie) => {
+    dispatch(removeMovieAction(movie.id))
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      {loading
+        ? <div>Loading</div>
+        : <Fragment>
+          <List
+            title="Recommendations"
+            data={recommendations}
+            buttonText="Add"
+            onButtonClick={handleAdd}
+          />
+          <hr />
+          <List
+            title="My List"
+            data={myList}
+            buttonText="Remove"
+            onButtonClick={handleRemove}
+          />
+        </Fragment>}
+
     </div>
   );
 }
