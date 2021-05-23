@@ -13,7 +13,7 @@ function App() {
   })
   useEffect(() => {
     dispatch(loadMovieDataAction());
-  }, []);
+  }, [dispatch]);
 
   const handleAdd = (movie) => {
     dispatch(addMovieAction(movie));
